@@ -6,7 +6,10 @@ import android.os.Build
 import android.os.Handler
 import android.view.View
 import android.webkit.WebStorage
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.MapView
+import com.naver.maps.map.NaverMap
 import com.naver.maps.map.NaverMapSdk
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
@@ -62,6 +65,7 @@ internal constructor(
     // of Flutter but used as an override anyway wherever it's actually defined.
     // TODO(mklim): Add the @Override annotation once stable passes v1.10.9.
     override fun onFlutterViewAttached(flutterView: View) {
+        mapView.onStart()
     }
 
     // @Override
@@ -71,17 +75,25 @@ internal constructor(
     // of Flutter but used as an override anyway wherever it's actually defined.
     // TODO(mklim): Add the @Override annotation once stable passes v1.10.9.
     override fun onFlutterViewDetached() {
+        mapView.onPause()
     }
 
     override fun onMethodCall(methodCall: MethodCall, result: MethodChannel.Result) {
         when (methodCall.method) {
+            "map#waitForMap" -> result.success(null)
+            "map#update" -> result.success(null);
             else -> result.notImplemented()
         }
     }
 
     override fun dispose() {
+        mapView.onDestroy()
         methodChannel.setMethodCallHandler(null)
     }
+//
+//    private fun getCameraPosition(): CameraPosition? {
+//        return CameraPosition(LatLng(1.0, 20.0), 1.0 )
+//    }
 
 //    companion object {
 //        private val JS_CHANNEL_NAMES_FIELD = "javascriptChannelNames"
