@@ -41,6 +41,7 @@ class MethodChannelNaverMapsFlutter extends NaverMapsFlutterPlatform {
     MethodChannel channel;
     if (!_channels.containsKey(mapId)) {
       channel = MethodChannel('flutter_naver_map_$mapId');
+//      channel = MethodChannel('flutter_naver_map_$mapId');
       channel.setMethodCallHandler(
           (MethodCall call) => _handleMethodCall(call, mapId));
       _channels[mapId] = channel;
@@ -227,17 +228,17 @@ class MethodChannelNaverMapsFlutter extends NaverMapsFlutterPlatform {
   /// platform side.
   ///
   /// The returned [Future] completes after listeners have been notified.
-  @override
-  Future<void> updatePolygons(
-    PolygonUpdates polygonUpdates, {
-    @required int mapId,
-  }) {
-    assert(polygonUpdates != null);
-    return channel(mapId).invokeMethod<void>(
-      'polygons#update',
-      polygonUpdates.toJson(),
-    );
-  }
+//  @override
+//  Future<void> updatePolygons(
+//    PolygonUpdates polygonUpdates, {
+//    @required int mapId,
+//  }) {
+//    assert(polygonUpdates != null);
+//    return channel(mapId).invokeMethod<void>(
+//      'polygons#update',
+//      polygonUpdates.toJson(),
+//    );
+//  }
 
   /// Updates polyline configuration.
   ///
@@ -337,12 +338,20 @@ class MethodChannelNaverMapsFlutter extends NaverMapsFlutterPlatform {
   }) async {
     final Map<String, dynamic> latLngBounds = await channel(mapId)
         .invokeMapMethod<String, dynamic>('map#getVisibleRegion');
+    print("###############");
+    print(latLngBounds);
+    if (latLngBounds == null) {
+      return LatLngBounds(northeast: LatLng(1, 1), southwest: LatLng(1, 1));
+    }
     final LatLng southwest = LatLng.fromJson(latLngBounds['southwest']);
     final LatLng northeast = LatLng.fromJson(latLngBounds['northeast']);
 
-    return LatLngBounds(northeast: northeast, southwest: southwest);
+    return _delayedToResult(LatLngBounds(northeast: northeast, southwest: southwest));
   }
 
+  static Future<T> _delayedToResult<T>(T result) {
+    return new Future.delayed(const Duration(milliseconds: 100), () => result);
+  }
   /// Return point [Map<String, int>] of the [screenCoordinateInJson] in the current map view.
   ///
   /// A projection is used to translate between on screen location and geographic coordinates.

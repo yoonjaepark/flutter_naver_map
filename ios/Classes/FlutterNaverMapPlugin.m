@@ -8,7 +8,7 @@
 #import "flutter_naver_map-Swift.h"
 #endif
 
-@implementation FlutterNaverMapPlugin
+@implementation FlutterNaverMapPlugin : NSObject
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   [SwiftFlutterNaverMapPlugin registerWithRegistrar:registrar];
 }

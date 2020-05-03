@@ -39,9 +39,6 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
     northeast: const LatLng(0, 0),
   );
 
-  void onMapCreated(NaverMapController webViewController) async {
-    _controller.complete(webViewController);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,20 +50,20 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
         child: Center(
           child: SizedBox(
             width: 300.0,
-            height: 200.0,
+            height: 300.0,
             child: googleMap,
           ),
         ),
       ),
     ];
 
-//    if (mapController != null) {
-//      final String currentVisibleRegion = 'VisibleRegion:'
-//          '\nnortheast: ${_visibleRegion.northeast},'
-//          '\nsouthwest: ${_visibleRegion.southwest}';
-//      columnChildren.add(Center(child: Text(currentVisibleRegion)));
-//      columnChildren.add(_getVisibleRegionButton());
-//    }
+    if (mapController != null) {
+      final String currentVisibleRegion = 'VisibleRegion:'
+          '\nnortheast: ${_visibleRegion.northeast},'
+          '\nsouthwest: ${_visibleRegion.southwest}';
+      columnChildren.add(Center(child: Text(currentVisibleRegion)));
+      columnChildren.add(_getVisibleRegionButton());
+    }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -77,13 +74,13 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
 
 
 
-//  void onMapCreated(GoogleMapController controller) async {
-//    final LatLngBounds visibleRegion = await controller.getVisibleRegion();
-//    setState(() {
-//      mapController = controller;
-//      _visibleRegion = visibleRegion;
-//    });
-//  }
+  void onMapCreated(NaverMapController controller) async {
+    final LatLngBounds visibleRegion = await controller.getVisibleRegion();
+    setState(() {
+      mapController = controller;
+      _visibleRegion = visibleRegion;
+    });
+  }
 
   Widget _getVisibleRegionButton() {
     return Padding(
@@ -91,11 +88,11 @@ class _MapCoordinatesBodyState extends State<_MapCoordinatesBody> {
       child: RaisedButton(
         child: const Text('Get Visible Region Bounds'),
         onPressed: () async {
-//          final LatLngBounds visibleRegion =
-//          await mapController.getVisibleRegion();
-//          setState(() {
-//            _visibleRegion = visibleRegion;
-//          });
+          final LatLngBounds visibleRegion =
+          await mapController.getVisibleRegion();
+          setState(() {
+            _visibleRegion = visibleRegion;
+          });
         },
       ),
     );

@@ -81,12 +81,12 @@ abstract class NaverMapsFlutterPlatform extends PlatformInterface {
   /// platform side.
   ///
   /// The returned [Future] completes after listeners have been notified.
-  Future<void> updatePolygons(
-    PolygonUpdates polygonUpdates, {
-    @required int mapId,
-  }) {
-    throw UnimplementedError('updatePolygons() has not been implemented.');
-  }
+//  Future<void> updatePolygons(
+//    PolygonUpdates polygonUpdates, {
+//    @required int mapId,
+//  }) {
+//    throw UnimplementedError('updatePolygons() has not been implemented.');
+//  }
 
   /// Updates polyline configuration.
   ///

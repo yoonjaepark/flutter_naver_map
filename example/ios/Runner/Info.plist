@@ -41,5 +41,16 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>io.flutter.embedded_views_preview</key>
+    <true/>
+    <key>NSAppTransportSecurity</key>
+        <dict>
+            <key>NSAllowsArbitraryLoads</key>
+            <true/>
+        </dict>
+        <key>LSApplicationCategoryType</key>
+    <string>NSLocationWhenInUseUsageDescription</string>
+    <key>NMFClientId</key>
+       <string>YOUR_CLIENT_ID_HERE</string>
 </dict>
 </plist>

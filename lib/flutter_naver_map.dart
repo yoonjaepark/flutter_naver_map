@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_naver_map/src/types/types.dart';
 import 'package:flutter_naver_map/naver_maps_flutter_platform_interface.dart';
 import 'package:flutter_naver_map/src/method_channel/method_channel_naver_maps_flutter.dart';
+import 'package:e2e/e2e.dart';
 
 /// Callback method for when the map is ready to be used.
 ///
@@ -441,11 +442,11 @@ class NaverMapController {
   /// platform side.
   ///
   /// The returned [Future] completes after listeners have been notified.
-  Future<void> _updateMarkers(MarkerUpdates markerUpdates) {
-    assert(markerUpdates != null);
-    return _naverMapsFlutterPlatform.updateMarkers(markerUpdates,
-        mapId: mapId);
-  }
+//  Future<void> _updateMarkers(MarkerUpdates markerUpdates) {
+//    assert(markerUpdates != null);
+//    return _naverMapsFlutterPlatform.updateMarkers(markerUpdates,
+//        mapId: mapId);
+//  }
 
   /// Updates polygon configuration.
   ///
@@ -453,11 +454,11 @@ class NaverMapController {
   /// platform side.
   ///
   /// The returned [Future] completes after listeners have been notified.
-  Future<void> _updatePolygons(PolygonUpdates polygonUpdates) {
-    assert(polygonUpdates != null);
-    return _naverMapsFlutterPlatform.updatePolygons(polygonUpdates,
-        mapId: mapId);
-  }
+//  Future<void> _updatePolygons(PolygonUpdates polygonUpdates) {
+//    assert(polygonUpdates != null);
+//    return _naverMapsFlutterPlatform.updatePolygons(polygonUpdates,
+//        mapId: mapId);
+//  }
 
   /// Updates polyline configuration.
   ///
@@ -633,8 +634,8 @@ class _NaverMapState extends State<NaverMap> {
   void didUpdateWidget(NaverMap oldWidget) {
     super.didUpdateWidget(oldWidget);
     _updateOptions();
-    _updateMarkers();
-    _updatePolygons();
+//    _updateMarkers();
+//    _updatePolygons();
     _updatePolylines();
     _updateCircles();
   }
@@ -652,21 +653,21 @@ class _NaverMapState extends State<NaverMap> {
     _naverMapOptions = newOptions;
   }
 
-  void _updateMarkers() async {
-    final NaverMapController controller = await _controller.future;
-    // ignore: unawaited_futures
-    controller._updateMarkers(
-        MarkerUpdates.from(_markers.values.toSet(), widget.markers));
-    _markers = keyByMarkerId(widget.markers);
-  }
+//  void _updateMarkers() async {
+//    final NaverMapController controller = await _controller.future;
+//    // ignore: unawaited_futures
+//    controller._updateMarkers(
+//        MarkerUpdates.from(_markers.values.toSet(), widget.markers));
+//    _markers = keyByMarkerId(widget.markers);
+//  }
 
-  void _updatePolygons() async {
-    final NaverMapController controller = await _controller.future;
-    // ignore: unawaited_futures
-    controller._updatePolygons(
-        PolygonUpdates.from(_polygons.values.toSet(), widget.polygons));
-    _polygons = keyByPolygonId(widget.polygons);
-  }
+//  void _updatePolygons() async {
+//    final NaverMapController controller = await _controller.future;
+//    // ignore: unawaited_futures
+//    controller._updatePolygons(
+//        PolygonUpdates.from(_polygons.values.toSet(), widget.polygons));
+//    _polygons = keyByPolygonId(widget.polygons);
+//  }
 
   void _updatePolylines() async {
     final NaverMapController controller = await _controller.future;
